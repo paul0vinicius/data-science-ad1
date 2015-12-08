@@ -1,16 +1,38 @@
-This is a minimal example of a Jekyll-based website using **knitr** and R
-Markdown. The interesting bit of this repo is that you can actually serve the
-Jekyll website locally with R, and R Markdown posts can be compiled
-automatically, with the web pages automatically refreshed as well.
+# kntir-jekyll (with htmlwidgets)
 
-After you are satisfied with the local preview, you can either just push the
-Markdown blog posts to your Github repo (e.g. the `gh-pages` branch), and let
-Github generate the website for you, or host the HTML files generated under the
-`_site/` directory on your own server.
+A fork of Yihui's superb [knitr-jekyll](https://github.com/yihui/knitr-jekyll) repo, tweaked to allow it to render [`htmllwidgets`](http://www.htmlwidgets.org/) output, using some additional [wrapper functions](https://github.com/brendan-R/brocks/blob/master/R/blog_stuff.R) from my [personal R package](https://github.com/brendan-R/brocks).
 
-The original website was created from `jekyll new .` under the root directory,
-which was part of the [official Jekyll repo](https://github.com/jekyll/jekyll).
-The additional code (R, Makefile) in this repo is under the MIT License, and the
-[blog post](http://yihui.name/knitr-jekyll/2014/09/jekyll-with-knitr.html) I
-wrote is under the [CC-BY 4.0](http://creativecommons.org/licenses/by/4.0/)
-International License.
+This blog-post explains the ins-and-outs of what's going on under the hood to make it all work: [brendanrocks.com/htmlwidgets-knitr-jekyll](http://brendanrocks.com/htmlwidgets-knitr-jekyll/).
+
+Note: This repo stores the source for posts in thier own subdirectories (e.g. `./_source/new-post/2015-12-07-new-post.Rmd`), which is purely my personal preference, but is slightly different to the original. This means that to get the blog generated/served, you might have more luck with `brocks::blog_gen()`/`brocks::blog_serve()` than the `servr::jekyll()` defaults.
+
+## Installation / Dependencies
+
+#### R Package Dependencies
+
+To get this repo working, you'll need the wrapper function `brocks::htmlwidgets_deps` in the `brocks` package. To render the example post featuring `htmlwidgets`, you'll also need those packages. Here's the lot:
+
+```r
+# Required for the htmlwidgets wrapper functions -----------------------------
+# install.packages("devtools")
+devtools::install_github("brendan-r/brocks")
+
+# For knitr-jekyll, and the htmlwidgets stuff --------------------------------
+install.packages(c(
+  "servr",
+  "knitr",
+  "metricsgraphics",
+  "leaflet",
+  "threejs",
+  "maps"
+))
+
+```
+
+#### This repo
+
+Clone with git, or just download as a .zip. From there, get editing!
+
+## Getting blogging
+In addition to Yihui's post on how the system works, I wrote a little guide (with a gentle introduction to static site generation) here:  [brendanrocks.com/blogging-with-rmarkdown-knitr-jekyll](http://brendanrocks.com/blogging-with-rmarkdown-knitr-jekyll/).
+
