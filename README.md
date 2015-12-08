@@ -1,6 +1,6 @@
 # kntir-jekyll (with htmlwidgets)
 
-A fork of Yihui's superb [knitr-jekyll](https://github.com/yihui/knitr-jekyll) repo, tweaked to allow it to render [`htmllwidgets`](http://www.htmlwidgets.org/) output, using some additional [wrapper functions](https://github.com/brendan-R/brocks/blob/master/R/blog_stuff.R) from my [personal R package](https://github.com/brendan-R/brocks).
+A fork of Yihui's superb [knitr-jekyll](https://github.com/yihui/knitr-jekyll) repo, tweaked to allow it to render [`htmlwidgets`](http://www.htmlwidgets.org/) output, using some additional [wrapper functions](https://github.com/brendan-R/brocks/blob/master/R/blog_stuff.R) from my [personal R package](https://github.com/brendan-R/brocks).
 
 This blog-post explains the ins-and-outs of what's going on under the hood to make it all work: [brendanrocks.com/htmlwidgets-knitr-jekyll](http://brendanrocks.com/htmlwidgets-knitr-jekyll/).
 
