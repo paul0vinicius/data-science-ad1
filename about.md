@@ -3,9 +3,16 @@ layout: page
 title: About
 permalink: /about/
 ---
+Oi, meu nome é Arthur.
 
-This is the base Jekyll theme. You can find out more info about customizing your Jekyll theme, as well as basic Jekyll usage documentation at [jekyllrb.com](http://jekyllrb.com/)
+tudo bom?
 
-You can find the source code for the Jekyll new theme at: [github.com/jglovier/jekyll-new](https://github.com/jglovier/jekyll-new)
+espero que sim :)
 
-You can find the source code for Jekyll at [github.com/jekyll/jekyll](https://github.com/jekyll/jekyll)
+sou estudante, mais especificamente, de ciência da computação. Não, eu não sei rackear Facebook ou WhatsApp, mas sei mexer com algumas estatísticas e com uns gráficos legais.
+
+o propósito desse blog é postar coisas que eu fiz (as legais), projetos pessoais ou até mesmo os trabalhos da universidade, e é isso.
+
+sim, meu contato: arthurlustosaa@gmail.com
+
+facebook, twitter e github é só clicar nos balõezinhos abaixo.
