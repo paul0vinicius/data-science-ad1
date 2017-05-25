@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Jekyll Primeira Postagem (Windows)
-date: 2017-05-24 21:27:37
+date: 2017-05-24 21:29:54
 published: true
 tags: [htmlwidgets, r]
 
@@ -81,7 +81,7 @@ install.packages(c(
 
 
 #Obtendo um repositório
-Faça um fork do repositório [knitr-jekyll](https://github.com/yihui/knitr-jekyll) para que vocÊ possa gerar seus post diretamente de um RMarkdown. 
+Faça um fork do repositório [knitr-jekyll](https://github.com/yihui/knitr-jekyll) para que você possa gerar seus post diretamente de um RMarkdown. 
 
 Essa será a estrutura do seu repositório:
 
