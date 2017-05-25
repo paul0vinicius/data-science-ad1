@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Jekyll Primeira Postagem (Ubuntu)
-date: 2017-05-24 21:18:10
+date: 2017-05-24 21:21:23
 published: true
 tags: [htmlwidgets, r]
 ---
@@ -197,3 +197,7 @@ arthur@pc:~/workspace/maisumsitesobre$ jekyll serve
 {% endhighlight %}
 
 Agora que você conseguiu criar sua primeira postagem, basta dar push nos seus arquivos. 
+
+Esse tutorial foi desenvido baseado nos seguintes:
+[Jekyll - Quick Start](https://jekyllrb.com/docs/quickstart/)
+[Jekyll with GitHub Pages](https://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/)

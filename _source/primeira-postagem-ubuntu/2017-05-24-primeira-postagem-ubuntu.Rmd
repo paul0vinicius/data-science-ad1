@@ -186,3 +186,7 @@ arthur@pc:~/workspace/maisumsitesobre$ jekyll serve
 ```
 
 Agora que você conseguiu criar sua primeira postagem, basta dar push nos seus arquivos. 
+
+Esse tutorial foi desenvido baseado nos seguintes:
+[Jekyll - Quick Start](https://jekyllrb.com/docs/quickstart/)
+[Jekyll with GitHub Pages](https://www.smashingmagazine.com/2014/08/build-blog-jekyll-github-pages/)
