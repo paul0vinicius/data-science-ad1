@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Primeira Postagem (Windows)
-date: 2017-05-24 21:04:06
+date: 2017-05-24 21:15:23
 published: true
 tags: [htmlwidgets, r]
 ---
@@ -20,7 +20,6 @@ Primeiro, clique no link e baixe o instalador do Ruby que corresponde à arquite
 Execute o instalador e siga as etapas da instalação. Quando você chegar à tela abaixo, certifique-se de verificar a caixa "Adicionar Ruby executáveis para o seu PATH".
 
 *Instale o Ruby DevKit*
-
 
 Jekyll tem algumas dependências e para atendê-las você precisará instalar o Development Kit.
 
@@ -49,6 +48,14 @@ Instale o DevKit, vinculando-o à sua instalação Ruby.
 ruby dk.rb install
 {% endhighlight %}
 
+#Instalando o Jekyll
+
+Jekyll se apresenta sob a forma de uma Gem Ruby, que é um pacote de software fácil de instalar. Para instalar Jekyll e todas as suas dependências padrão, inicie sua ferramenta de linha de comando favorita e digite o seguinte comando.
+
+
+{% highlight r %}
+gem install jekyll
+{% endhighlight %}
 
 #Configurando RStudio
 Após ter configurado sua máquina, vamos agora para as configurações no RStudio.

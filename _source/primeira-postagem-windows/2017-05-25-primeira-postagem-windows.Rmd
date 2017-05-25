@@ -21,7 +21,6 @@ Execute o instalador e siga as etapas da instalação. Quando você chegar à te
 
 *Instale o Ruby DevKit*
 
-
 Jekyll tem algumas dependências e para atendê-las você precisará instalar o Development Kit.
 
 [Ruby DevKit](https://rubyinstaller.org/downloads/)
@@ -46,6 +45,13 @@ Instale o DevKit, vinculando-o à sua instalação Ruby.
 ruby dk.rb install
 ```
 
+#Instalando o Jekyll
+
+Jekyll se apresenta sob a forma de uma Gem Ruby, que é um pacote de software fácil de instalar. Para instalar Jekyll e todas as suas dependências padrão, inicie sua ferramenta de linha de comando favorita e digite o seguinte comando.
+
+```{r, eval=F}
+gem install jekyll
+```
 
 #Configurando RStudio
 Após ter configurado sua máquina, vamos agora para as configurações no RStudio.
