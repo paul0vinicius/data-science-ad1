@@ -185,6 +185,7 @@ Porém o site será levantando utilizando o terminal da IDE, o ideal é que voc�
 arthur@pc:~/workspace/maisumsitesobre$ jekyll serve
 ```
 
+**IMPORTANTE** antes de dar push, executar o comando **brocks::blog_serve()**
 Agora que você conseguiu criar sua primeira postagem, basta dar push nos seus arquivos. 
 
 Esse tutorial foi desenvido baseado em:

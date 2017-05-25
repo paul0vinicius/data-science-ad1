@@ -1,7 +1,7 @@
 ---
 layout: post
 title:  Jekyll Primeira Postagem (Ubuntu)
-date: 2017-05-24 21:23:34
+date: 2017-05-24 21:27:37
 published: true
 tags: [htmlwidgets, r]
 ---
@@ -196,6 +196,7 @@ Porém o site será levantando utilizando o terminal da IDE, o ideal é que voc�
 arthur@pc:~/workspace/maisumsitesobre$ jekyll serve
 {% endhighlight %}
 
+**IMPORTANTE** antes de dar push, executar o comando **brocks::blog_serve()**
 Agora que você conseguiu criar sua primeira postagem, basta dar push nos seus arquivos. 
 
 Esse tutorial foi desenvido baseado em:

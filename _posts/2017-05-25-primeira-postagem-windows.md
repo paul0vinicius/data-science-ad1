@@ -1,17 +1,13 @@
 ---
 layout: post
 title:  Jekyll Primeira Postagem (Windows)
-date: 2017-05-24 21:24:10
+date: 2017-05-24 21:27:37
 published: true
 tags: [htmlwidgets, r]
-output: 
-  html_document:
-   toc: true
-   toc_float: true
-   theme: lumen
+
 ---
 
-Neste tutorial, instalaremos um site de desenvolvimento Jekyll 3.2.1 no Ubuntu 16.04. Em tutoriais posteriores, publicaremos um site estático no mesmo servidor e, hospedaremos no [Github Pages](https://pages.github.com/).
+Neste tutorial, instalaremos Jekyll 3.2.1. Em tutoriais posteriores, publicaremos um site estático no mesmo servidor e, hospedaremos no [Github Pages](https://pages.github.com/).
 
 Primeiro precisamos configurar nossa máquina para instalar o Jekyll.
 
@@ -204,6 +200,7 @@ Porém o site será levantando utilizando o terminal da IDE, o ideal é que voc�
 arthur@pc:~/workspace/maisumsitesobre$ jekyll serve
 {% endhighlight %}
 
+**IMPORTANTE** antes de dar push, executar o comando **brocks::blog_serve()**
 Agora que você conseguiu criar sua primeira postagem, basta dar push nos seus arquivos. 
 
 Esse tutorial foi desenvido baseado em:
