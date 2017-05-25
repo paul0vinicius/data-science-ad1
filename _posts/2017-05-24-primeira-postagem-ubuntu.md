@@ -1,7 +1,7 @@
 ---
 layout: post
-title:  Primeira Postagem (Ubuntu)
-date: 2017-05-24 20:32:52
+title:  Jekyll Primeira Postagem (Ubuntu)
+date: 2017-05-24 21:18:10
 published: true
 tags: [htmlwidgets, r]
 ---

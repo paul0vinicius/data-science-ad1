@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  Primeira Postagem (Windows)
+title:  Jekyll Primeira Postagem (Windows)
 date: `r Sys.time()`
 published: true
 tags: [htmlwidgets, r]
