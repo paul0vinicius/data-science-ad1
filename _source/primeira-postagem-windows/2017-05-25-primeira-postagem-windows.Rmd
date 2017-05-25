@@ -4,6 +4,7 @@ title:  Jekyll Primeira Postagem (Windows)
 date: `r Sys.time()`
 published: true
 tags: [htmlwidgets, r]
+
 ---
 
 Neste tutorial, instalaremos um site de desenvolvimento Jekyll 3.2.1 no Ubuntu 16.04. Em tutoriais posteriores, publicaremos um site estático no mesmo servidor e, hospedaremos no [Github Pages](https://pages.github.com/).
@@ -188,3 +189,6 @@ arthur@pc:~/workspace/maisumsitesobre$ jekyll serve
 ```
 
 Agora que você conseguiu criar sua primeira postagem, basta dar push nos seus arquivos. 
+
+Esse tutorial foi desenvido baseado em:
+[Run Jekyll on Windows](http://jekyll-windows.juthilo.com/)
