@@ -1,0 +1,127 @@
+---
+layout: post
+title: "Analisando mais a fundo as séries de TV"
+date: `r Sys.time()`
+published: true
+tags: [htmlwidgets, r]
+author: "Paulo Vinícius Soares"
+output: 
+  html_document:
+        toc: true
+        toc_float: true
+        toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning = FALSE,message = FALSE,fig.width = 10, fig.align = "center", set.seed(2))
+
+library(readr)
+library(dplyr)
+library(ggplot2)
+```
+
+Olá! Este texto é uma continuação das análises referentes às séries de televisão, cujo contexto é a disciplina de Análise de Dados I, na Universidade Federal de Campina Grande (UFCG).
+
+Vamos explorar os nossos dados e responder perguntas mais capciosas utilizando nossas ferramentas.
+
+# Panorama dos dados
+O nossos dados são da plataforma IMDB, e são constituídos por **31 séries**. Vamos considerar, para facilitar a nossa análise, que esses dados são a nossa **população**.
+
+```{r}
+series_from_imdb <- read_csv("../../database/series_from_imdb.csv")
+all_series_name <- unique(series_from_imdb$series_name)
+#all_series_name
+```
+
+Os dados possuem nome, episódio e temporada da série, URL, nome do episódio, avaliação do usuário, quantidade de votos e a proporção de votos de 1-10 para cada episódio.
+
+# Perguntas
+Dentro do contexto, foram pensadas duas perguntas sobre as séries:
+
+  - 1. Episódios pilotos tem maior nota do que os demais episódios da série?
+  
+  - 2. A proporção de notas 10 que os episódios de uma série recebe decai ao decorrer das temporadas?
+
+# Uma rápida discussão sobre tamanho da amostra
+
+Uma conclusão mais concreta requer um cálculo especial para aumentar o nível de confiabilidade. Então, vamos ver como calcular o **tamanho da amostra**:     
+
+<img src="/data-science-ad1/figure/source/lab01/images/calculoamostra.png" style="display: block; margin: auto;" />
+
+Vamos adotar o valor de p em 0.5 para facilitar, assumindo que a proporção é igual entre séries em que o episódio piloto possui maior valor e onde este não possui o maior valor, para a primeira pergunta, por exemplo.
+Adotando o valor de Z=2,575 (Nível de confiança 99%) e margem de erro 'e' em 0.05, temos o valor da amostra=31, que é semelhante ao valor da população. Isso ocorre porque nossa população é relativamente pequena. Como é inviável plotar as 31 séries, vamos adotar um tamanho de amostra=10, diminuindo um pouco o nível de confiança, mas de forma que podemos obter resultados e discutí-los abaixo.
+
+# Resposta à primeira pergunta:
+
+Nesse contexto, episódios pilotos se referem a todos os primeiros episódios das séries analisadas. A intenção é verificar se este primeiro episódio possui melhor avaliação do que os episódios restantes daquela série. Por melhor avaliação, precisamos definir uma ferramenta de medição, um parâmetro. Temos em nossas mãos a **média** e a **mediana**, novamente. Como vimos na análise passada, a **média** não é o parâmetro de medição mais adequado para esse contexto haja visto que esta é afetada por **valores extremos**, discrepantes de onde há concentração das notas. Como estamos interessados na **constância das notas**, a **mediana** será nosso parâmetro de medição.
+
+A análise se dará da seguinte forma: A nota do episódio piloto será comparada à mediana dos demais episódios da série. Vamos utilizar um gráfico de caixa (boxplot) para mostrar os resultados. Dessa forma também podemos observar a distribuição dos valores, onde estes se concentram, além dos máximos e mínimos. O ponto vermelho representará a nota do episódio piloto. Vamos ver quantos pontos temos acima da mediana, ou seja, quantos pontos ficam acima da barrinha existente no meio do boxplot.  
+Vamos escolher uma **amostra aleatória** contendo **10 séries** e, a partir disso, tiramos as nossas conclusões.
+
+```{r, message=FALSE}
+random_choosed_series <- sample(all_series_name, 10)
+dataSeries <- series_from_imdb %>% filter(series_name %in% random_choosed_series)
+
+ratings <- dataSeries %>% filter(series_ep %in% 1) %>% filter(season %in% 1)
+
+ggplot(dataSeries, aes(x=series_name, y = UserRating)) + geom_boxplot(aes(color=series_name), show.legend=FALSE) +  stat_summary(aes(label=round(..y..,2)), fun.y=median, geom="text", size=2.5, vjust = -0.5) + ggtitle("Avaliação dos demais episódios VS Avaliação do episódio piloto") + theme(plot.title = element_text(hjust = 0.5)) + xlab("Nome da série") + ylab("Nota dos episódios") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_point(data=ratings, colour="red")
+```
+
+A partir dos resultados vistos acima, podemos concluir que **não é verdade a afirmação à pergunta**, os episódios pilotos nem sempre são melhores do que os demais. Na verdade eles variam muito, podendo ter avaliação iguais ou bem menores do que os demais. Como a amostra é escolhida de forma aleatória, há a possibilidade de pegar séries que tiveram o episódio piloto melhor avaliado, mas no geral isso não é uma verdade absoluta. Também devemos atentar para o nível de confiança da amostra, que é menor que 90%.
+
+## Será que episódios pilotos têm melhor avaliação do que *seasons finales*?
+
+Vamos usar outro gráfico de caixa (boxplot), já que existem mais *seasons finales* do que o episódio piloto. Nossa análise se dará pela **mediana** das notas das *seasons finales* e o ponto vermelho representará a nota do episódio piloto.
+
+```{r}
+season_finale_eps = dataSeries %>% group_by(series_name, season) %>% summarise(season_ep = max(season_ep))
+
+season_finale_eps$isSeasonFinale <- TRUE
+
+dataSeries <- right_join(season_finale_eps, dataSeries, by=c("series_name","season","season_ep"))
+
+dataSeries$isSeasonFinale <- ifelse(is.na(dataSeries$isSeasonFinale),FALSE,TRUE)
+
+notasSeasonFinale <- dataSeries %>% filter(isSeasonFinale)
+
+ggplot(notasSeasonFinale, aes(x=series_name, y = UserRating)) + geom_boxplot(aes(color=series_name), show.legend=FALSE) +  stat_summary(aes(label=round(..y..,2)), fun.y=median, geom="text", size=2.5, vjust = -0.5) + ggtitle("Avaliação das seasons finales VS Avaliação do episódio piloto") + theme(plot.title = element_text(hjust = 0.5)) + xlab("Nome da série") + ylab("Nota dos episódios") + theme(axis.text.x = element_text(angle = 90, hjust = 1)) + geom_point(data=ratings, colour="red")
+
+```
+
+No gráfico fica bem explícito que **não**. *Seasons finales* possuem avaliação muito melhor que os episódios pilotos para a amostra analisada, levando em consideração a mediana dos episódios.  
+
+# Resposta à segunda pergunta:
+
+Para essa análise, usaremos a coluna r10 do nosso banco de dados. A coluna 'r10' se refere à proporção de notas 10 que foram dadas à determinado episódio considerando todos os votos para aquele episódio. Vamos verificar o crescimento desta variável dentro de uma temporada de determinada série e comparar com o crescimento de outra temporada dessa mesma série. Em seguida, vamos verificar se houve uma queda no crescimento das notas 10 em relação às temporadas anteriores.
+
+Vamos escolher uma **amostra aleatória** contendo **10 séries** e, a partir disso, tiramos as nossas conclusões.
+
+```{r}
+random_choosed_series <- sample(all_series_name, 10)
+dataSeries <- series_from_imdb %>% filter(series_name %in% random_choosed_series)
+
+dataSeries %>% ggplot(aes(x = season_ep,y = r10, color = series_name)) + geom_line() + facet_grid(series_name~season)+ labs(x= "Temporada da Série", y= "Proporção de notas 10")
+```
+
+O gráfico facilmente desmente essa afirmação. Em geral, grande parte das séries sofrem aumento na proporção de notas 10 de temporada para temporada. Se analisarmos os gráficos de uma temporada para outra percebemos que temporadas posteriores têm maiores picos, ou seja, maior proporção de notas 10.
+
+## Será que a proporção de notas mínimas para cada episódio aumenta ao decorrer das temporadas?
+
+Para responder essa pergunta, vamos fazer uma análise similar à anterior utilizando as mesmas séries. Vamos utilizar também o mesmo tipo de gráfico, bastando mudar a coluna analisada. Vamos utilizar a coluna 'r1' que se refere à proporção de notas 1 que foram dadas à determinado episódio considerando todos os votos para aquele episódio. Vamos verificar o seu comportamento.
+
+```{r}
+dataSeries %>% ggplot(aes(x = season_ep,y = r1, color = series_name)) + geom_line() + facet_grid(series_name~season)+ labs(x= "Temporada da Série", y= "Proporção de notas 1")
+```
+
+A partir do gráfico podemos perceber que não há um padrão claro para aumento das notas dos *haters* ao decorrer das temporadas. Em geral, há uma estabilidade para esse tipo de nota. Picos de nota 1 ocorrem em algumas séries em temporadas aleatórias, mas não há um padrão de crescimento para estas notas.
+
+# Possíveis explicações para os resultados observados
+
+Na primeira pergunta, eu acreditava que os episódios pilotos teriam uma nota mais alta, comparada aos demais, por haver maior esforço em prender a atenção do espectador para que este continuasse assistindo a série, mas isso não ocorre. Na pergunta derivada comprovamos que as *seasons finales* possuem maior nota que os episódios pilotos e isso ocorre por estes episódios trazerem fechamento de tramas e abertura para novos conflitos, o que causa expectativa e imensa ansiedade pelo desfecho por parte do espectador. 
+
+Na segunda pergunta, minha expectativa era que as notas 10 fossem diminuindo ao longo das temporadas já que o público poderia "se cansar" da temática da série, por exemplo. Mas o que percebemos é o oposto, em geral os fãs vão ficando cada vez mais apaixonados pela série, o que implica investimento por parte da produção em cativar cada vez mais seus espectadores. Na pergunta derivada, busquei entender a relação dos *haters* ao decorrer das temporadas, mas percebi que são raros os casos da avaliação extremamente negativa. Os pontos fora da curva podem ser explicados por episódios que não empolgaram tanto quanto episódios próximos de uma mesma temporada. Se a série mantém um padrão de qualidade muito alto e um determinado episódio quebra esse padrão, ele é facilmente mal-avaliado, destoando-se dos demais. Uma quebra de expectativas.
+
+Essa foi a análise, espero que tenham gostado! 
+Até a próxima.
+
+

@@ -1,0 +1,77 @@
+---
+layout: post
+title: "Seasons finales VS Episódios pilotos"
+date: `r Sys.time()`
+published: true
+tags: [htmlwidgets, r]
+author: "Paulo Vinícius Soares"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,warning = FALSE,message = FALSE,fig.width = 10, fig.align = "center", set.seed(2))
+
+library(tidyverse)
+library(plotly)
+```
+
+```{r, echo=FALSE}
+series_from_imdb <- read_csv("../../database/series_from_imdb.csv")
+all_series_name <- unique(series_from_imdb$series_name)
+#all_series_name
+```
+
+Olá! Este texto é uma continuação das análises referentes às séries de televisão, cujo contexto é a disciplina de Análise de Dados I, na Universidade Federal de Campina Grande (UFCG).
+
+Nesta análise eu pretendo explorar a relação entre as notas de *seasons finales* e episódios pilotos, que são os primeiros episódios de cada série.
+
+Havia um questionamento na minha mente que não me deixava em paz: *Os primeiros episódios de uma série são mais bem avaliados do que os demais?*
+
+Na minha cabeça a resposta era óbvia: *"Claro que sim! Eles investem PESADO para conquistar o público no primeiro episódio e assim garantir uma parcela boa de espectadores."*
+
+Mas, eu precisava ter certeza! Dessa forma, eu utilizei o banco de dados do IMDB para sanar essa dúvida. Escolhi 4 das minhas séries favoritas: **Black Mirror, Modern Family, Sense8 e The 100** e resolvi comparar as notas entre elas.
+
+No gráfico abaixo temos o resultado dessa comparação e as conclusões.
+
+```{r fig.height=10, message=FALSE, echo=FALSE}
+# Escolhe 10 séries aleatoriamente do banco de dados
+#random_choosed_series <- sample(all_series_name, 10)
+
+# Escolhe as 4 séries do banco de dados
+dataSeries <- series_from_imdb %>% filter(series_name %in% c("Modern Family","The 100","Black Mirror","Sense8"))
+
+# Trecho de código que seleciona as seasons finales de cada temporada
+season_finale_eps <- dataSeries %>% 
+                      group_by(series_name, season) %>% 
+                      summarise(season_ep = max(season_ep))
+season_finale_eps$isSeasonFinale <- TRUE
+dataSeries <- right_join(season_finale_eps, dataSeries, by=c("series_name","season","season_ep"))
+dataSeries$isSeasonFinale <- ifelse(is.na(dataSeries$isSeasonFinale),FALSE,TRUE)
+notasSeasonFinale <- dataSeries %>% filter(isSeasonFinale)
+
+# Trecho de código que seleciona todos os episódios pilotos
+ratings <- dataSeries %>% filter(series_ep %in% 1) %>% filter(season %in% 1)
+
+# Agrupamento por nome da série e temporada para calcular as medianas de cada série por temporada
+mediansSeries <- dataSeries %>% 
+          group_by(series_name, season) %>%
+          summarise(medians=median(UserRating))
+
+# Plotagem final dos dados usando plotly
+f <- list(
+  size = 10,
+  color = "#7f7f7f"
+)
+
+plot_ly(data=dataSeries, name="Notas gerais dos episódios", x=~series_name, y=~UserRating, type = "box", jitter=1) %>%
+  layout(xaxis = list(title = "", tickfont=f), yaxis = list(title = "Nota dos episódios")) %>%
+  add_markers(data=ratings, name="Nota dos episódios pilotos", x=~series_name, y=~UserRating) %>%
+  add_markers(data=notasSeasonFinale, name="Notas das seasons finales", x=~series_name, y=~UserRating, text=~paste('Temporada: ', season))
+```
+
+Como podemos ver no gráfico acima, em **quase nenhum** caso a nota do episódio piloto foi maior do que qualquer *season finale*, exceto em The 100, onde apenas a *season finale* da 3ª temporada recebeu avaliação menor do que o episódio piloto. Podemos concluir que **quase sempre** ou **sempre** as seasons finales são mais bem avaliadas. Qual seria a razão para tal fenômeno? Bom, algumas das explicações razoáveis são: *seasons finales* oferecem oportunidades de novos conflitos, desfechos emocionantes e surpreendentes para o espectador de forma que o marcam. Sabe aquele choro ou aquela sensação agonizante de querer gritar sem parar porque seu personagem favorito está em perigo? Geralmente ocorrem nas *seasons finales*, por isso estas recebem avaliações tão altas.
+
+Com uma resposta tão clara para a minha pergunta, não me restou outra alternativa a não ser rever algumas seasons finales que me marcaram e experimentar todas aquelas sensações novamente.
+
+Essa foi a análise, espero que tenham gostado! 
+Até a próxima.

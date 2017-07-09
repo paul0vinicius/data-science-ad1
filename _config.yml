@@ -1,13 +1,11 @@
-# Site settings
-title: mais um site sobre
-subtitle: estatísticas e outras coisas
-email: arthurlustosaa@gmail.com
-description: > # this means to ignore newlines until "baseurl:"
-  um site sobre estatísticas, tutorias e coisas outras. 
-baseurl: "/maisumsitesobre" # the subpath of your site, e.g. /blog/
-url: "https://arthurlustosa.github.io/maisumsitesobre/" # the base hostname & protocol for your site
-twitter_username: arthurlustosa_
-github_username:  arthurlustosa
+# coding: utf-8
+title: Análise de Dados - 2017.1
+email: paulo.soares@ccc.ufcg.edu.br
+description: #> Minhas analises geradas durante a disciplina de AD1.
+baseurl: /data-science-ad1/
+url: http://paul0vinicius.github.io/data-science-ad1 # the base hostname & protocol for your site
+twitter_username: 
+github_username: paul0vinicius
 permalink: /:year/:month/:title.html
 
 # Build settings
