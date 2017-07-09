@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Seasons finales VS Episódios pilotos"
-date: 2017-07-09 14:44:49
+date: 2017-07-09 15:32:12
 published: true
 tags: [htmlwidgets, r]
 author: "Paulo Vinícius Soares"

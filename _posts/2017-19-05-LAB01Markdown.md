@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Qual a melhor série da atualidade?"
-date: 2017-07-09 14:44:30
+date: 2017-07-09 15:31:52
 published: true
 tags: [htmlwidgets, r]
 author: "Paulo Vinícius Soares"

@@ -1,11 +1,13 @@
 # coding: utf-8
 title: Análise de Dados - 2017.1
 email: paulo.soares@ccc.ufcg.edu.br
-description: #> Minhas analises geradas durante a disciplina de AD1.
+description: >
+  Torture the data, and it will confess to anything. ~ Ronald Coase, Economics, Nobel Prize Laureate
 baseurl: /data-science-ad1/
 url: http://paul0vinicius.github.io/data-science-ad1 # the base hostname & protocol for your site
 twitter_username: 
 github_username: paul0vinicius
+instagram_username: paul0viniciuss
 permalink: /:year/:month/:title.html
 
 # Build settings

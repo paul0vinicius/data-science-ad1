@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Analisando mais a fundo as séries de TV"
-date: 2017-07-09 14:44:38
+date: 2017-07-09 15:32:01
 published: true
 tags: [htmlwidgets, r]
 author: "Paulo Vinícius Soares"

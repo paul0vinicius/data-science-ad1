@@ -1,7 +1,7 @@
 ---
 layout: post
 title: "Filmes by Rodrigo Santoro"
-date: 2017-07-09 14:44:54
+date: 2017-07-09 15:32:17
 published: true
 tags: [htmlwidgets, r]
 author: "Paulo Vinicius Soares"

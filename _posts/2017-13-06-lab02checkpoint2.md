@@ -1,7 +1,7 @@
 ---
 layout: post
 title: 'Desempenho de uma série de acordo com dados do IMDB'
-date: 2017-07-09 14:44:53
+date: 2017-07-09 15:32:16
 published: true
 tags: [htmlwidgets, r]
 author: "Paulo Vinícius Soares"
